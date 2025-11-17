@@ -75,5 +75,42 @@ self.venus_actor.RotateZ(-venus_gmst).
 * Atmospheric Effects: While not volumetrically simulated (for performance), proximity to the Sun triggers subtle glow enhancements in halo logic (r_km = np.linalg.norm(pos_km - sun_pos_km)), evoking Venus's phase changes and superior conjunction visibility.
 * Venus's implementation highlights its paradoxical "slow dance" with the Sun, keeping compute overhead low without moons.
 * Focus on Venus: Press v to zoom in (set_planet_focus('venus', self.venus_actor)), with clipping auto-reset for detailed cloud layer views (min distance: ~VENUS_RADIUS * 20 units).
+
 This captures Venus's veiled, volcanic fury, perfect for illustrating greenhouse extremes. Enhancements could include dynamic cloud rotation from Akatsuki data.
 
+EARTH
+<img width="1358" height="648" alt="image" src="https://github.com/user-attachments/assets/0c10b204-4eeb-4b8b-965c-41cad178cbc9" />
+Earth, our blue marble and the only known cradle of life in the solar system, orbits at a comfortable 1 AU from the Sun, enabling a temperate climate that supports diverse ecosystems across seven continents, vast oceans covering 71% of its surface, and a protective atmosphere of nitrogen (78%) and oxygen (21%) that shields against cosmic rays while driving dynamic weather patterns like hurricanes and auroras. This gaseous envelope, laced with water vapor and trace gases, fosters the greenhouse effect that keeps global averages at a life-sustaining 15°C (59°F), though human-induced changes are accelerating warming. Earth's iron-nickel core generates a magnetic field deflecting solar wind, while its active geology—plate tectonics, volcanoes, and earthquakes—recycles its crust. Iconic missions like Apollo (1969–1972) and ongoing observations from satellites such as Terra and Aqua have mapped its ever-changing visage, revealing seasonal ice caps, swirling cloud vortices, and bioluminescent oceans under the night side.
+In this simulation, Earth is the interactive hub, complete with axial precession, lunar orbit, and atmospheric glow, leveraging Keplerian elements for synchronized day-night cycles and tidal locking visuals.
+<img width="1358" height="652" alt="image" src="https://github.com/user-attachments/assets/79858c6e-650d-4f77-b4e1-07a6432c35f7" />
+A standout feature is Luna (Latin for Moon), Earth's sole natural satellite and the fifth-largest in the solar system, orbiting at an average 384,400 km with a diameter of 3,475 km—about a quarter of Earth's. Formed ~4.5 billion years ago from debris of a Mars-sized impactor (Theia), Luna stabilizes Earth's axial tilt for consistent seasons, drives tides influencing marine life and coastal erosion, and once hosted a molten magma ocean now solidified into basaltic maria (dark "seas") and rugged highlands pocked by craters like Tycho. Its thin exosphere (mostly argon and helium) and lack of atmosphere expose it to micrometeorites, creating perpetual "moonquakes" from tidal stresses. NASA's Artemis program (2020s) aims to return humans, building on Apollo's legacy of 382 kg of lunar samples.
+<img width="1365" height="666" alt="image" src="https://github.com/user-attachments/assets/6db37606-291d-47f1-8c4b-81e51f6c1cac" />
+
+* Radius: 6,371 km (scaled to EARTH_RADIUS = REAL_EARTH_RADIUS_KM * SIZEKM_TO_SCENE for balanced proportions).
+* Gravitational Parameter (GM): 3.986 × 10⁵ km³/s² (GM_EARTH), central to moon orbital mechanics.
+* Orbital Distance: 1.0 AU (EARTH_AU), defining EARTH_ORBIT_RADIUS = EARTH_AU * AU_SCALE as the baseline unit.
+* Rotation Period: 0.99726968 Earth days (sidereal; ROTATION_PERIOD["earth"] = 0.99726968 * 86400 seconds), equating to ~0.004° per simulated second (ROTATION_DEG_PER_SIMSEC["earth"]) for diurnal motion.
+* Axial Tilt: 23.44° (AXIAL_TILTS["earth"]), driving seasons via actor.RotateX(AXIAL_TILTS["earth"]).
+* Rendering: A vibrant blue-green pv.Sphere (color="blue" with landmasses in green/brown via texture mapping, e.g., NASA's Blue Marble composite), overlaid with a translucent atmospheric halo (add_atmosphere_halo) simulating ozone layer scattering (opacity ~0.2 for Rayleigh blue skies). Clouds could be procedurally added as semi-transparent meshes for weather dynamism.
+  <img width="1352" height="656" alt="image" src="https://github.com/user-attachments/assets/b175ed37-4b97-47b5-96fc-86d496c182d8" />
+
+* Orbital Motion: Real-time heliocentric positioning in update(): set_body_position_from_elements("earth", self.earth_actor, orbital_elements["earth"], target_jd). Scaled from km to scene coordinates (km_to_scene), with inertial frame smoothing to mimic elliptical path.
+* Rotation: Prograde spin synchronized to sidereal day (actor.RotateZ(deg % 360.0)), initialized with GMST for accurate longitude.
+* Focus on Earth: Press g to home in (set_planet_focus('earth', self.earth_actor)), enabling moon navigation via numeric keys (1 for Luna; min distance: ~EARTH_RADIUS * 20 units).
+
+MARS
+<img width="1365" height="655" alt="image" src="https://github.com/user-attachments/assets/52da038b-17bc-46a7-9a22-c22756a929a1" />
+Mars, the enigmatic Red Planet, orbits at 1.524 AU from the Sun, its rusty hue stemming from iron oxide (rust) dust blanketing vast deserts, towering canyons like Valles Marineris (four times Grand Canyon's length), and the solar system's largest volcano, Olympus Mons (22 km high). A thin atmosphere—mostly carbon dioxide (95.3%) with nitrogen (2.7%) and argon (1.6%)—creates wispy clouds, global dust storms that can engulf the planet for months, and seasonal polar ice caps of water and CO₂ frost, hinting at ancient rivers and potential subsurface oceans. Surface temperatures swing from -60°C ( -76°F) average to 20°C (68°F) highs, with low pressure (0.6% of Earth's) making liquid water unstable. Pioneering missions like Viking (1976), Pathfinder (1997), and NASA's Perseverance rover (2021–present) have uncovered organic molecules and methane plumes, fueling dreams of past microbial life and future human exploration.
+In this simulation, Mars is vividly animated with its two potato-shaped moons, dust-red terrain, and orbital eccentricity, using Keplerian mechanics to showcase its elliptical path and synodic oppositions.
+<img width="1351" height="659" alt="image" src="https://github.com/user-attachments/assets/783afb5c-0600-4da8-aae3-02345e188ed3" />
+* Radius: 3,390 km (scaled to MARS_RADIUS = REAL_MARS_RADIUS_KM * SIZEKM_TO_SCENE for compact visualization).
+* Gravitational Parameter (GM): 4.282 × 10⁴ km³/s² (GM_MARS), governing Phobos and Deimos orbits.
+* Orbital Distance: 1.524 AU (MARS_AU), producing MARS_ORBIT_RADIUS = MARS_AU * AU_SCALE.
+* Rotation Period: 1.025957 Earth days (sidereal; ROTATION_PERIOD["mars"] = 1.025957 * 86400 seconds), translating to ~0.0039° per simulated second (ROTATION_DEG_PER_SIMSEC["mars"]) for sol-like days.
+* Axial Tilt: 25.19° (AXIAL_TILTS["mars"]), similar to Earth's for comparable seasons, via actor.RotateX(AXIAL_TILTS["mars"]).
+* Rendering: A reddish pv.Sphere (color="red" or "maroon" with procedural craters and polar caps via noise textures, opacity=1.0), accented by a sparse atmospheric halo (add_atmosphere_halo) for dust storm hints—opacity modulated by solar distance (r_km = np.linalg.norm(pos_km - sun_pos_km)).
+* Orbital Motion: Updated in the update() loop with osculating elements: set_body_position_from_elements("mars", self.mars_actor, orbital_elements["mars"], target_jd).  Scaled heliocentric positions (km_to_scene) with eccentricity-driven speed variations for realistic perihelion rushes.
+* Rotation: Prograde axial spin (actor.RotateZ(deg % 360.0)), GMST-initialized for areographic accuracy.
+  <img width="1353" height="657" alt="image" src="https://github.com/user-attachments/assets/b114dc97-0adc-4dea-819d-dc959788122d" />
+
+* Moons and Atmosphere: Phobos (press 1) and Deimos (press 2) orbit in moon_actors["mars"], tidally locked with faint exosphere glows; optional dust animation could swirl via particle emitters during opposition.
