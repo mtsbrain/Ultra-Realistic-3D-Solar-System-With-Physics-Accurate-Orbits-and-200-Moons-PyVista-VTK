@@ -56,4 +56,24 @@ self.mercury_actor.RotateZ(-merc_gmst).
 
 This module captures Mercury's harsh, airless isolation, ideal for demonstrating extreme orbital mechanics. Future updates could integrate real-time solar wind data from NASA's ACE satellite for dynamic exosphere effects.
 
+VENUS
+<img width="1364" height="671" alt="image" src="https://github.com/user-attachments/assets/cb6360c0-ec50-423f-ac80-74dd55660d15" />
+Venus, often dubbed Earth's "evil twin" due to its similar size and rocky composition, is the second planet from the Sun at an average distance of 0.723 AU. Blanketed by a dense, toxic atmosphere composed mainly of carbon dioxide (96.5%) with traces of nitrogen (3.5%) and sulfuric acid clouds, it experiences a runaway greenhouse effect that traps heat, making it the hottest planet in the solar system with surface temperatures averaging 464°C (867°F)—hot enough to melt lead. Atmospheric pressure at the surface is a crushing 92 times that of Earth, rendering the landscape a hellish vista of volcanic plains, massive lava domes, and continent-sized highlands like Ishtar Terra. Its rotation is retrograde and excruciatingly slow (243 Earth days per spin, longer than its 225-day orbit), resulting in a "day" longer than its year, while radar mapping from NASA's Magellan mission (1989–1994) unveiled a surface dominated by volcanism and few impact craters. Venus's thick cloud cover reflects 70% of sunlight, giving it a brilliant white appearance from Earth, but hides a dynamic world probed by ongoing missions like Japan's Akatsuki (2015–present).
+In this simulation, Venus is rendered with emphasis on its retrograde spin and atmospheric opacity, using Keplerian dynamics for precise orbital tracking and simplified cloud visuals for educational impact.
+<img width="1365" height="670" alt="image" src="https://github.com/user-attachments/assets/f72758b6-b9e5-495d-a0e6-843c116c978f" />
+* Radius: 6,052 km (scaled to VENUS_RADIUS = REAL_VENUS_RADIUS_KM * SIZEKM_TO_SCENE for relative sizing).
+* Gravitational Parameter (GM): 3.249 × 10⁵ km³/s² (GM_VENUS), for potential future enhancements like surface simulations.
+* Orbital Distance: 0.723 AU (VENUS_AU), yielding VENUS_ORBIT_RADIUS = VENUS_AU * AU_SCALE.
+* Rotation Period: -243.025 Earth days (retrograde; ROTATION_PERIOD["venus"] = -243.025 * 86400 seconds), yielding ~ -0.000059° per simulated second (ROTATION_DEG_PER_SIMSEC["venus"])—the negative sign enforces backward spin.
+* Axial Tilt: 177.4° (AXIAL_TILTS["venus"]), effectively a 2.6° tilt in the opposite direction due to retrograde motion, applied via actor.RotateX(AXIAL_TILTS["venus"]).
+* Rendering: Modeled as a creamy-yellow sphere (pv.Sphere with color="yellow" or "orange" for cloud reflection, opacity=0.9) with optional procedural textures simulating sulfuric acid haze (e.g., layered noise for cloud bands). A faint atmospheric halo (add_atmosphere_halo) can represent the upper cloud deck, with opacity scaled to mimic 99% light scattering.
+* Orbital Motion: Dynamically positioned in the update() loop via osculating elements: set_body_position_from_elements("venus", self.venus_actor, orbital_elements["venus"], target_jd). Converts heliocentric km coordinates to scene units (km_to_scene), with velocity smoothing for seamless animation.
+<img width="1365" height="663" alt="image" src="https://github.com/user-attachments/assets/e0243889-53f5-4ce4-8626-079cfb084e44" />
+
+* Rotation: Retrograde spin around the Z-axis (actor.RotateZ(-deg % 360.0) to account for negative period), initialized with GMST-adjusted orientation: venus_gmst = gmst_deg * (ROTATION_PERIOD["earth"] / abs(ROTATION_PERIOD["venus"])) % 360.0
+self.venus_actor.RotateZ(-venus_gmst).
+* Atmospheric Effects: While not volumetrically simulated (for performance), proximity to the Sun triggers subtle glow enhancements in halo logic (r_km = np.linalg.norm(pos_km - sun_pos_km)), evoking Venus's phase changes and superior conjunction visibility.
+* Venus's implementation highlights its paradoxical "slow dance" with the Sun, keeping compute overhead low without moons.
+* Focus on Venus: Press v to zoom in (set_planet_focus('venus', self.venus_actor)), with clipping auto-reset for detailed cloud layer views (min distance: ~VENUS_RADIUS * 20 units).
+This captures Venus's veiled, volcanic fury, perfect for illustrating greenhouse extremes. Enhancements could include dynamic cloud rotation from Akatsuki data.
 
