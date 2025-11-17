@@ -137,4 +137,23 @@ In this simulation, Mars is vividly animated with its two potato-shaped moons, d
 * Rotation: Prograde axial spin (actor.RotateZ(deg % 360.0)), GMST-initialized for areographic accuracy.
   <img width="1353" height="657" alt="image" src="https://github.com/user-attachments/assets/b114dc97-0adc-4dea-819d-dc959788122d" />
 
-* Moons and Atmosphere: Phobos (press 1) and Deimos (press 2) orbit in moon_actors["mars"], tidally locked with faint exosphere glows; optional dust animation could swirl via particle emitters during opposition.
+* Moons and Atmosphere: Phobos (press 1) and Deimos (press 2) orbit in moon_actors["mars"], tidally locked with faint exosphere glows.
+JUPITER
+Jupiter, the colossal gas giant and king of the solar planets, reigns at 5.2 AU from the Sun, its swirling bands of hydrogen (90%) and helium (10%) clouds—stained ochre, white, and brown by ammonia crystals and water vapor—harboring ferocious storms like the Great Red Spot, a hurricane twice Earth's diameter raging for centuries. Composed mostly of primordial solar nebula gas, it boasts a massive rocky/icy core shrouded in metallic hydrogen layers generating ferocious magnetic fields and auroras brighter than the Sun's. With no solid surface, temperatures plummet from 165 K (-108°C) in the clouds to scorching 24,000 K at the core, while its 79 known moons (95 modeled here) range from volcanic Io to icy Europa (a prime astrobiology target with subsurface ocean) and cratered Callisto. NASA's Pioneer (1973), Galileo (1995–2003), and Juno (2016–present) missions unveiled its turbulent atmosphere, faint dusty rings from moon ejecta, and role as a "cosmic vacuum" deflecting comets—potentially preserving inner planets like Earth.
+<img width="1352" height="657" alt="image" src="https://github.com/user-attachments/assets/6c6bea53-3e73-49e1-a6d0-c6d541e8f22b" />
+In this simulation, Jupiter dominates with its 95 dynamically orbiting moons (LOD-culled for performance), banded sphere, and subtle ring system, employing Keplerian elements to illustrate its rapid orbit and the resonant dances of its Galilean satellites.
+* Radius: 71,492 km (scaled to JUPITER_RADIUS = REAL_JUPITER_RADIUS_KM * SIZEKM_TO_SCENE for imposing presence)
+* Gravitational Parameter (GM): 1.266 × 10⁸ km³/s² (GM_JUPITER), dominating moon and ring dynamics
+* Orbital Distance: 5.2 AU (JUPITER_AU), yielding JUPITER_ORBIT_RADIUS = JUPITER_AU * AU_SCALE
+* Rotation Period: 9.925 hours (sidereal; ROTATION_PERIOD["jupiter"] = 9.925 * 3600 seconds), spinning ~0.036° per simulated second (ROTATION_DEG_PER_SIMSEC["jupiter"])—fastest in the system, flattening its equator
+<img width="1351" height="654" alt="image" src="https://github.com/user-attachments/assets/d05913ad-f2ef-4617-95ba-55ba40a4588f" />
+
+* Axial Tilt: 3.13° (AXIAL_TILTS["jupiter"]), minimal for stable belts, applied via actor.RotateX(AXIAL_TILTS["jupiter"])
+* Rendering: A striped orange-brown pv.Sphere (color="orange" with zonal bands via cylindrical texture mapping, e.g., JunoCam composites; opacity=1.0), featuring a persistent red oval for the Great Red Spot (procedural ellipse mesh). Faint dusty rings (ring_actors) orbit in the equatorial plane, scaled from Amalthea/Thebe ejecta
+* Orbital Motion: Real-time update in update(): set_body_position_from_elements("jupiter", self.jupiter_actor, orbital_elements["jupiter"], target_jd). Heliocentric km-to-scene scaling (km_to_scene) highlights its near-circular path, with barycentric Sun wobble influence
+<img width="1351" height="657" alt="image" src="https://github.com/user-attachments/assets/0dfbb754-8045-4564-87dc-dfd6c527ce1a" />
+
+* Rotation: Ultra-fast prograde spin (actor.RotateZ(deg % 360.0)), equatorial bulge simulated by ellipsoidal mesh deformation for oblateness (~6% flattening).
+* Moons: 95 bodies in MOON_SCALE_FACTORS["jupiter"] (e.g., Io at 421,800 km, e=0.0041; tiny Valetudo at 18.7M km), updated in moon loop with tidal locking (actor.RotateZ(v_deg)) and LOD scaling (TINY_MOON_THRESHOLD = 150,000 km). Inner Galileans (1–8: Metis to Callisto) prograde; outer irregulars retrograde
+<img width="1351" height="662" alt="image" src="https://github.com/user-attachments/assets/319af0b4-53e3-4dde-83af-1ec627b3c697" />
+Focus on Jupiter: Press j to zoom (set_planet_focus('jupiter', self.jupiter_actor)), then 1–95 for moons (e.g., 6=Ganymede; multi-digit buffered; min distance: ~JUPITER_RADIUS * 20 units).
