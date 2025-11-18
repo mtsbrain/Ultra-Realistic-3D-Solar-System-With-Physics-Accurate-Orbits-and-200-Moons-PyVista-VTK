@@ -267,3 +267,71 @@ Halley close-up
 * Tail length scales with activity — can exceed 0.5 AU near perihelion
 * Retrograde Motion: Orbits opposite to planets — watch it race against the ecliptic flow!
 * Press z → Instantly focus on Comet Halley
+
+C/1995 O1 (Hale-Bopp) 
+Hale-Bopp is widely regarded as the Great Comet of the 20th century and one of the brightest comets ever witnessed in human history. Independently discovered on July 23, 1995 by Alan Hale and Thomas Bopp while it was still beyond Jupiter’s orbit (7.1 AU from the Sun), it remained visible to the naked eye for a record-breaking 18 months — longer than any other comet in recorded history. At its peak in March–April 1997 it reached magnitude -1, outshining every star except Sirius, and displayed an enormous dual tail system visible even from light-polluted cities. It was photographed billions of times and sparked worldwide fascination (and unfortunately the Heaven’s Gate tragedy). Unlike Halley, Hale-Bopp will not return for thousands of years.
+Hale-Bopp is a true Oort Cloud giant with an estimated nucleus diameter of 40–60 km (up to 10× larger than Halley), extremely high dust production, and activity that began while still beyond Saturn. Its near-perpendicular orbit (89.3°) sent it plunging almost straight through the planetary plane, producing one of the most spectacular dust tails ever recorded (over 40° long) alongside a narrow, straight blue ion tail — the perfect showcase for the volumetric comet engine.
+
+Hale-Bopp close-up
+<img width="1350" height="655" alt="image" src="https://github.com/user-attachments/assets/5be9991d-bbab-4fac-bb68-a76021eea0ff" />
+
+* Semi-major axis: ~177.43 AU (extremely long-period comet)
+* Eccentricity: 0.99498 → essentially parabolic after 1997 perturbations (will never return on human timescales)
+* Inclination: 89.29° (almost perfectly perpendicular to the ecliptic)
+* Perihelion distance: 0.914 AU (passed perihelion on April 1, 1997)
+* Orbital period: ~2520 years inbound → ~4200 years outbound after planetary encounters
+* Nucleus size: ~40–60 km diameter (one of the largest known cometary nuclei)
+* Nucleus radius used: 30 km (effective for rendering)
+* Epoch: JD 2460990.5 (Nov 11, 2025) — exact JPL Horizons elements
+* Color in sim: Deep blue-to-cyan ("Blues" colormap) — captures the bright white coma and stunning pale blue ion tail seen in 1997
+<img width="1345" height="652" alt="image" src="https://github.com/user-attachments/assets/a7e5aad3-59b1-4eef-90bb-0ed11461e2f2" />
+
+* Nucleus: Massive, hyperactive even at 7+ AU (visible naked-eye while beyond Jupiter!)
+* Coma & Tail: Full volumetric treatment via make_volumetric_comet_body()
+* Activates inside SUBLIMATION_DISTANCE (realistic ~7–8 AU — it was already brilliant at 7 AU pre-perihelion)
+* Legendary dual tail structure: enormous curved white-yellow dust tail (up to 40°+ long) + narrow straight blue ion tail — naturally emerges from turbulence and velocity alignment
+* "Blues" colormap perfectly recreates the ghostly white coma fading into the pale blue plasma tail
+<img width="1343" height="649" alt="image" src="https://github.com/user-attachments/assets/abc666d4-1422-44aa-8d94-4e4d85de87e9" />
+
+* Tail length scales with activity — reached over 1 AU in reality, easily >0.8 AU in sim near perihelion
+* Near-polar orbit — watch it dive almost straight down through the ecliptic like a cosmic spear!
+* Press x → Instantly focus on Comet Hale-Bopp
+
+C/2011 W3 (Lovejoy)
+Lovejoy is one of the most dramatic and photogenic comets of the 21st century — the only Kreutz sungrazer in modern history to survive a direct plunge through the solar corona. Discovered on 27 November 2011 by Australian amateur Terry Lovejoy when it was still a faint 12th-magnitude object, it brightened explosively as it approached the Sun and, on 16 December 2011, passed just 140 000 km (0.009 AU) above the solar surface at over 600 km/s. Expected to disintegrate like most Kreutz fragments, it instead emerged intact on the other side, regenerating a brilliant glowing green coma and a spectacular long tail within hours. For weeks afterward it put on a breathtaking pre-dawn show for the entire Southern Hemisphere, earning the nicknames “Christmas Comet” and “Great Southern Comet.”
+Lovejoy belongs to the famous Kreutz sungrazer family — fragments of a giant comet that broke apart centuries ago. Its extreme perihelion vaporized vast amounts of material, releasing huge quantities of diatomic carbon (C₂) and cyanogen that produced the intense emerald-green color that made it instantly recognizable in thousands of iconic photographs.
+Lovejoy close-up
+<img width="1354" height="648" alt="image" src="https://github.com/user-attachments/assets/91e3db1e-bbd8-4221-bbf7-a1f59ddf8dae" />
+
+
+* Semi-major axis: ~393 AU (very long-period Oort Cloud comet)
+* Eccentricity: 0.998 → essentially parabolic, will be ejected from the Solar System after this pass
+* Inclination: 80.3° (highly inclined)
+* Perihelion distance: 0.009 AU (140 000 km above the Sun’s surface — survived by sheer luck!)
+* Orbital period: hundreds of thousands of years inbound → hyperbolic outbound
+* Nucleus size: estimated 0.5–2 km (typical small Kreutz fragment; most of it vaporized)
+* Nucleus radius used: 10 km (scaled up for visibility and volumetric rendering)
+* Epoch: JD 2460990.5 (Nov 11, 2025) — exact JPL Horizons elements
+* Color in sim: Intense emerald green ("Greens" colormap) — perfectly matches the real C₂ swan-band emission that gave Lovejoy its signature glowing green comaimage
+* Nucleus: Tiny surviving fragment that somehow lived through million-degree temperatures
+* Coma & Tail: Full volumetric treatment via make_volumetric_comet_body()
+<img width="1343" height="637" alt="image" src="https://github.com/user-attachments/assets/35741708-8f8e-40ec-8a3b-8fbf7e871763" />
+
+* Activates far out (~10 AU) but goes absolutely nuclear inside ~2 AU, with explosive activity right at perihelion
+* Gorgeous glowing emerald coma + long straight ion tail + curved dust tail — the volumetric engine nails the vivid green color and turbulent post-perihelion structure
+* "Greens" colormap is a perfect reproduction of the diatomic-carbon green seen in real images
+* Tail length scales with activity — post-perihelion tail stretched tens of millions of km, easily >0.6 AU in sim
+* Watch it scream in from the Oort Cloud, graze the Sun at 600 km/s, and get flung out of the Solar System forever!
+* Press d → Instantly focus on Comet Lovejoy
+
+
+Rendering a realistic comet body is a very heavy task. At first I tried creating real dust and ion tails using millions of tiny dots exactly like real comets, but it lagged terribly. I experimented many different ways, but on my low-end laptop it was impossible. Eventually I switched to volumetric rendering: I create a rectangular block, make the comet head and tail regions denser, then zero-out everything else. This runs, but it’s still quite laggy and hurts the smoothness of the entire simulation.  
+To make it run smoothly on lower-end machines you can reduce the grid resolution (COMET_GRID_SIZE from 128 → 64 or even 48) and lower the gaussian_filter sigma — you’ll lose some fine detail but gain huge performance and the comet will still look beautiful.  
+I know how to make it look 100 % like real-world photos (turbulence layers, synchrotron ion tail rays, anti-tail, striae, etc.), but I simply don’t have the hardware to test and run it in real time.  
+There are also many more things I wanted to add: dozens of parabolic/hypothetical comets, full Kuiper belt cloud, hundreds more moons with real NASA textures, dwarf planets textures, asteroid families, etc. — the script will never be “complete”. Feel free to use this project as a reference for study or further development.
+
+midhun10112003@gmail.com → contact me anytime if you have questions, need guidance, or want to collaborate.  
+This is not an academic or commercial project — I just do it in my free time, may be  I’m  obsessed with the universe and celestial mechanics ♡
+
+by
+Midhun V P
