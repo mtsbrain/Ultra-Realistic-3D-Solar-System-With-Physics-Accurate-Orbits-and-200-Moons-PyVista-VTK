@@ -221,4 +221,49 @@ In this simulation, Neptune enchants with its 14 tidally diverse moons, subtle r
 <img width="1351" height="655" alt="image" src="https://github.com/user-attachments/assets/de5c7546-3eb0-4b27-97d4-76f04620623a" />
 
 * Focus on Neptune: Press n to plunge in (set_planet_focus('neptune', self.neptune_actor)), then 1–14 for moons (e.g., 8=Triton; buffered; min distance: ~NEPTUNE_RADIUS * 20 units)
-  
+Encke (2P/Encke) 
+Comet Encke is the fastest short-period comet in our solar system, completing an orbit every 3.3 years — the shortest known period for any comet. Discovered in 1786 by Pierre Méchain and rediscovered multiple times (hence its multiple historical names), it’s officially designated 2P/Encke and belongs to the rare Encke-type comet family inside Jupiter’s orbit.
+Unlike dramatic long-period visitors like Hale-Bopp, Encke has been repeatedly stripped by solar heating over thousands of passes, leaving it with very low activity and no visible dust tail in most apparitions. What remains is a faint ion tail and a small coma, making it a challenging naked-eye object (best magnitude ~3–6). It’s considered the parent of the Taurid meteor stream (responsible for November’s Taurids fireballs) and may be a fragment of a much larger ancient comet.
+In this simulation, Encke is fully dynamic with real JPL Horizons osculating elements (epoch Nov 2025), a volumetric coma & tail, and distance-based sublimation — it only activates inside ~2.2 AU (adjustable via SUBLIMATION_DISTANCE).
+<img width="1350" height="649" alt="image" src="https://github.com/user-attachments/assets/a19b626b-3356-4cc2-8509-23e6a3ab1db7" />
+* Semi-major axis: 2.215 AU
+* Eccentricity: 0.84833 → highly elongated orbit
+* Inclination: 11.76°
+* Perihelion distance: ~0.33 AU (very close to the Sun!)
+* Orbital period: 3.3 years
+* Nucleus radius: ~2.0 km (very small, depleted)
+* Epoch: JD 2460990.5 (Nov 11, 2025) — elements directly from JPL Horizons
+* Color in sim: Yellow/orange ("enscke": "YlOrBr" colormap) — reflects dusty, low-gas composition
+* Nucleus: Tiny glowing point (scaled up for visibility) using nucleus_actor
+<img width="1346" height="640" alt="image" src="https://github.com/user-attachments/assets/81f4bd2b-324a-4ec8-a8cd-013933376784" />
+* Coma & Tail: Fully volumetric using make_volumetric_comet_body()
+* Activates only when r_km < SUBLIMATION_DISTANCE (currently 10 AU, but realistic ~2.2 AU)
+* Tail points anti-solar and aligns with velocity vector
+* Turbulence, vortex, and flicker effects for realism
+* Custom colormap "YlOrBr" → warm yellowish appearance matching its dust-rich nature
+* Halo/Glow: Cyan-white coma halo that brightens near perihelion
+* Motion: Smoothed Keplerian propagation using kepler_to_state() with mu = GM_SUN
+* Press l → Focus on Comet Encke instantly
+Halley (1P/Halley)
+1P/Halley is the archetypal periodic comet and the only one visible to the naked eye that can appear twice in a human lifetime. First recorded by humans in 240 BC, it has been observed on every return since, including spectacular showings in 1066 (Bayeux Tapestry) and 1910. Its most recent visit was in 1986 (studied by Giotto, Vega, and Suisei probes), and it will return next in mid-2061, reaching perihelion on July 28, 2061.
+Halley is a classic long-period comet originating from the Oort Cloud, highly inclined and retrograde (162°), traveling opposite to the planets. It produces both a dust tail (curved, yellowish) and a straight blue ion tail, often stretching tens of millions of kilometers — exactly what the volumetric engine in this simulation was built to showcase.
+Halley close-up
+<img width="1292" height="582" alt="image" src="https://github.com/user-attachments/assets/3fa98ced-7473-4903-8990-263d485cc763" />
+* Semi-major axis: 17.84 AU
+* Eccentricity: 0.9671 → extremely elongated orbit
+* Inclination: 162.26° (retrograde!)
+* Perihelion distance: ~0.586 AU
+* Orbital period: 75.32 years (next return: 2061)
+* Nucleus size: ~15 × 8 × 8 km (peanut-shaped, very dark — albedo ~0.04)
+* Nucleus radius used: 5.5 km (effective for rendering)
+* Epoch: JD 2460990.5 (Nov 11, 2025) — exact JPL Horizons elements
+* Color in sim: Greenish ("Greens" colormap) — reflects strong CN and C₂ emissions seen in 1986
+<img width="1342" height="609" alt="image" src="https://github.com/user-attachments/assets/cad983b8-3264-473b-96b0-482ef645c9f3" />
+* Nucleus: Dark, potato-shaped core (scaled up for visibility)
+* Coma & Tail: Full volumetric treatment via make_volumetric_comet_body()
+* Activates inside SUBLIMATION_DISTANCE (10 AU in code, realistic ~4–5 AU for Halley)
+* Gorgeous dual tail structure: dust (curved) + ion (straight) naturally emerges from turbulence and velocity alignment
+* Green colormap perfectly matches Halley’s famous cyan-green coma
+* Tail length scales with activity — can exceed 0.5 AU near perihelion
+* Retrograde Motion: Orbits opposite to planets — watch it race against the ecliptic flow!
+* Press z → Instantly focus on Comet Halley
