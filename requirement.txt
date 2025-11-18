@@ -1,0 +1,4 @@
+pyvista>=0.44
+vtk>=9.3.0
+numpy>=1.26
+scipy>=1.13
